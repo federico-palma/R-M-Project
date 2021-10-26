@@ -3,10 +3,6 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-main{
-    
-}
-
 #card-table {
     margin: auto;
     display: flex;
@@ -17,8 +13,8 @@ main{
 }
 
 .char-card{
-    min-width: 216px;
-    height: 240px;
+    max-width: 216px;
+    height: 300px;
     margin: 25px;
     /* border: solid black 1px; */
     border-radius: 5px;
@@ -35,6 +31,7 @@ main{
 
 .char-name{
     margin: auto;
+    text-align: center;
 }
 
 /* Loading Animation */

@@ -3,8 +3,8 @@ let apiData;
 
 // Function fetches API.
 async function getAPI(url) {
-    const response = await fetch(url);
-    const data = await response.json();
+    let response = await fetch(url);
+    let data = await response.json();
     
     apiData = await data;
 }
@@ -13,8 +13,9 @@ getAPI(baseApiURL);
 console.log(apiData);
 setTimeout(function() {console.log(apiData)}, 100);
 
-// Functions add and remove loading animation.
+
 let loadingElements = document.getElementById('loading');
+// Functions add and remove loading animation.
 function showLoading() {
     loadingElements.classList.add('show');
 };
@@ -23,8 +24,9 @@ function hideLoading() {
     loadingElements.classList.remove('show')
 };
 
-// Function creates new Character Card elements and sets classes. 
+
 let cardTable = document.getElementById('card-table');
+// Function creates new Character Card elements & sets classes. Returns list with new elements.
 function createCardElements() {
     let newCharCardDiv = document.createElement('div');
     newCharCardDiv.className = 'char-card';
@@ -39,36 +41,34 @@ function createCardElements() {
     return [newCharCardDiv, newCharImg, newCharName];
 };
 
-// Function sets content for newly created Character Cards and appends card to .
+// Function sets content for newly created Character Cards and appends new card to table.
 function setCharContent() {
-    let cardElements = createCardElements()
+    if (apiData.info.next !== null) {
+        for (let i = 0; i < apiData.results.length; i++) {
+            let cardElements = createCardElements()
 
-    cardElements[1].src = apiData.results[0].image;
-    cardElements[2].innerText = apiData.results[0].name;
-    cardTable.appendChild(cardElements[0]);
+            cardElements[1].src = apiData.results[i].image;
+            cardElements[2].innerText = apiData.results[i].name;
+            cardTable.appendChild(cardElements[0]);
+        }
+        apiData = getAPI(apiData.info.next);
+    } else {
+        console.log('All characters loaded.')
+    }
 }
 
+setTimeout(() => setCharContent(), 100);
 
 
 
-
-setTimeout(function() {
-    document.getElementsByClassName('char-name')[0].innerText = apiData.results[0].name;
-    document.getElementsByClassName('char-img')[0].src = apiData.results[0].image;
-}, 100);
-
-
-
+// Event listener for infinte scrolling and loading animation.
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
-
+    if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
+        
         showLoading();
         setTimeout(setCharContent, 1000);
-    
-    } else {
-        hideLoading()
+        setTimeout(function() {hideLoading()}, 1000);
     }
 });
 
