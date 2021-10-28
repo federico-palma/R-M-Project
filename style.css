@@ -1,10 +1,36 @@
 * {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #01b4c6;
 }
 
+main {
+    
+    margin: 0px;
+}
+/* Navbar */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #0b818b;
+    box-shadow: 0px 0px 2px 3px  #0b818b;
+
+}
+
+#logo {
+    width: 180px;
+    background-color: #0b818b;
+    margin: 0px 50px;
+
+}
+
+/* Main carrds section */
 #card-table {
     margin: auto;
+    margin-top: 80px;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -16,9 +42,9 @@
     max-width: 216px;
     height: 300px;
     margin: 25px;
-    /* border: solid black 1px; */
     border-radius: 5px;
     box-shadow: 2px 2px 5px 1px;
+    background-color: #BEE5fD;
     display: grid;
     grid-row: 80% 20%;
 }
@@ -27,11 +53,13 @@
     max-width: 80%;
     max-height: 90%;
     margin: auto;
+    box-shadow: 0px 0px 5px 5px #F675Da;
 }
 
 .char-name{
     margin: auto;
     text-align: center;
+    background-color: #BEE5fD;
 }
 
 /* Loading Animation */
@@ -42,7 +70,8 @@
 	bottom: 50px;
 	left: 50%;
 	transform: translateX(-50%);
-	transition: opacity .3s ease-in;
+    transition: opacity .3s ease-in;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #loading.show {
@@ -50,7 +79,7 @@
 }
 
 .ball {
-	background-color: #777;
+	background-color: #FFF874;
 	border-radius: 50%;
 	margin: 5px;
 	height: 10px;
