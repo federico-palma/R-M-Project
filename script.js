@@ -61,7 +61,8 @@ let detailsCard = document.querySelector('.card-detail');
 async function showDetailsCard(charID) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
     console.log(charApiData);
-    detailsCard.style.visibility = 'visible';
+    // detailsCard.style.visibility = 'visible';
+    detailsCard.classList.add('show-detail-card')
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
@@ -74,7 +75,9 @@ async function showDetailsCard(charID) {
 // Close details card.
 let closeBtn = document.getElementById('close-btn');
 closeBtn.addEventListener('click', () => {
-    detailsCard.style.visibility = 'hidden';
+    // detailsCard.style.visibility = 'hidden';
+    // detailsCard.style.opacity = 0;
+    detailsCard.classList.remove('show-detail-card')
 });
 
 // Event listener for infinte scrolling and loading animation.

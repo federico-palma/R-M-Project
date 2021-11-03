@@ -101,10 +101,20 @@ main {
     visibility: hidden;
 }
 
-.hide-detail-card {
-    visibility: hidden;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
+.show-detail-card {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 #close-btn {
