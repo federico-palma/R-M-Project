@@ -1,11 +1,14 @@
 * {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
     background-color: #01b4c6;
 }
 
 main {
-    margin: 0px;
+    margin: 0px;  
 }
 
 /* Navbar */
@@ -23,11 +26,12 @@ main {
 #logo {
     width: 10%;
     min-width: 180px;
+    max-height: 95%;
     background-color: #0b818b;
     margin: 0px 50px;
 }
 
-/* Main carrds section */
+/* Main cards section */
 #card-table {
     margin: auto;
     margin-top: 80px;
@@ -50,6 +54,10 @@ main {
     grid-row: 70% 20%;
 }
 
+.char-card:hover {
+    cursor: pointer;
+}
+
 .char-img {
     max-width: 80%;
     max-height: 90%;
@@ -68,10 +76,82 @@ main {
     position: absolute;
     right: 10px;
     top: -10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(19, 0, 0, 0);
     width: 20px;
     text-align: end;
 }
+
+/* Detail Card */
+.card-detail {
+    position: fixed;
+    width: 400px;
+    max-width: 90%;
+    height: 520px;
+    background-color: #BEE5fD;
+    box-shadow: 2px 2px 5px 1px;
+    z-index: 10;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    visibility: hidden;
+}
+
+.hide-detail-card {
+    visibility: hidden;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+#close-btn {
+    background-color: #ff0000;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    position: absolute;
+    left: -14px;
+    top: -14px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 0px;
+}
+
+#close-btn:hover {
+    cursor: pointer;
+}
+
+#char-detail-list {
+    padding: 0;
+    margin: 30px auto;
+    list-style-type: none;
+    
+}
+
+.char-detail-items {
+    margin: 10px;
+}
+
+#char-id-detail {
+    position: absolute;
+    right: 10px;
+    top: -7px;
+}
+
+#char-img-detail {
+    max-width: 80%;
+    max-height: 90%;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 0px 0px 5px 5px #F675Da;
+}
+
+
+
+
 
 /* Loading Animation */
 #loading {
