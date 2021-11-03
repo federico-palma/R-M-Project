@@ -101,6 +101,7 @@ main {
     visibility: hidden;
 }
 
+/* FadeIn animation for details card */
 .show-detail-card {
     visibility: visible;
     -webkit-animation: fadeIn 0.3s;
@@ -138,11 +139,16 @@ main {
     padding: 0;
     margin: 30px auto;
     list-style-type: none;
-    
 }
 
 .char-detail-items {
     margin: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.char-detail-items span {
+    font-weight: lighter;
 }
 
 #char-id-detail {
@@ -158,10 +164,6 @@ main {
     margin-top: 20px;
     box-shadow: 0px 0px 5px 5px #F675Da;
 }
-
-
-
-
 
 /* Loading Animation */
 #loading {
