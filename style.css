@@ -64,6 +64,7 @@ main {
     margin: auto;
     margin-top: 17%;
     box-shadow: 0px 0px 5px 5px #F675Da;
+    border-radius: 50%;
 }
 
 .char-name{
@@ -91,7 +92,7 @@ main {
     box-shadow: 2px 2px 5px 1px;
     z-index: 10;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 70px;
     padding: 20px;
     top: 10%;
     left: 50%;
@@ -99,23 +100,6 @@ main {
     display: flex;
     flex-wrap: wrap;
     visibility: hidden;
-}
-
-/* FadeIn animation for details card */
-.show-detail-card {
-    visibility: visible;
-    -webkit-animation: fadeIn 0.3s;
-    animation: fadeIn 0.3s
-}
-
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-  
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
 }
 
 #close-btn {
@@ -165,6 +149,23 @@ main {
     box-shadow: 0px 0px 5px 5px #F675Da;
 }
 
+/* FadeIn animation for details card */
+.show-detail-card {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 /* Loading Animation */
 #loading {
 	opacity: 0;
@@ -175,10 +176,6 @@ main {
 	transform: translateX(-50%);
     transition: opacity .3s ease-in;
     background-color: rgba(0, 0, 0, 0);
-}
-
-#loading.show {
-	opacity: 1;
 }
 
 .ball {

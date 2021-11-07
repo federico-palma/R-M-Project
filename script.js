@@ -3,6 +3,17 @@ let apiData;
 let charApiData;
 let cardTable = document.getElementById('card-table');
 
+// Functions add and remove loading animation.
+let loadingAnimElements = document.getElementById('loading');
+
+function showLoading() {
+    loadingAnimElements.style.opacity = 1;
+};
+
+function hideLoading() {
+    loadingAnimElements.style.opacity = 0;
+};
+
 // Function fetches API, returns data in json format.
 async function fetchApi(url) {
     let response = await fetch(url);
@@ -29,7 +40,7 @@ function createCardElements() {
     return [newCharCardDiv, newCharImg, newCharName, newCharIdNum];
 };
 
-// Function sets content for newly created Character Cards and appends new card to table.
+// Function creates New Character Cards, sets content on them and appends them to card table.
 async function setCharContent(apiUrl) {
     apiData = await fetchApi(apiUrl);
 
@@ -40,16 +51,49 @@ async function setCharContent(apiUrl) {
             cardElements[1].src = apiData.results[i].image;
             cardElements[2].innerText = apiData.results[i].name;
             cardElements[3].innerText = apiData.results[i].id;
-            cardTable.appendChild(cardElements[0]);
-
+            
             // Set Event listener for detail card pop up.
             cardElements[0].addEventListener('click', () => {
-                showDetailsCard(cardElements[3].innerText);
+                showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow);
             });
+            cardTable.appendChild(cardElements[0]);
+
+            // Modify border based on gender of character
+            switch (apiData.results[i].gender) {
+                case 'Male':
+                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #1512da'
+                    break;
+                case 'Female':
+                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #da122d'
+                    break;
+                case 'Genderless':
+                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #ee7b22'
+                    break;
+                case 'unknown':
+                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #4ecf27'
+                    break;
+                default:
+                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #f60fe3'
+                    break;
+            }
         }
     } else {
         console.log('API Data not loaded');
     }
+
+    // test
+    return 1
+}
+
+// Test function waits for content to be loaded, while showing and hiding loading animation.
+function loadNewContent() {
+    let test = setCharContent(apiData.info.next)
+    sleep(2000);
+    while (test == 0) {
+
+    }
+    
+
 }
 
 // Set initial cards.
@@ -58,13 +102,14 @@ setCharContent(baseApiUrl);
 // Details card code.
 let detailsCard = document.querySelector('.card-detail');
 
-async function showDetailsCard(charID) {
+async function showDetailsCard(charID, borderColor) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
     console.log(charApiData);
     detailsCard.classList.add('show-detail-card')
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
+    document.getElementById('char-img-detail').style.boxShadow = borderColor
     document.getElementById("char-name-detail").innerText = charApiData.name;
     document.getElementById("char-gender-detail").innerText = charApiData.gender;
     document.getElementById("char-origin-detail").innerText = charApiData.origin.name;
@@ -81,25 +126,15 @@ closeBtn.addEventListener('click', () => {
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
-        showLoading();
+        // showLoading()
+        // loadNewContent()
         setCharContent(apiData.info.next);
-        hideLoading();
+        
+        // hideLoading();
     } else if (scrollTop + clientHeight >= scrollHeight && apiData.info.next == null){
         console.log('All characters loaded.')
     }
 });
-
-// Functions add and remove loading animation.
-let loadingAnimElements = document.getElementById('loading');
-function showLoading() {
-    loadingAnimElements.classList.add('show');
-};
-
-function hideLoading() {
-    loadingAnimElements.classList.remove('show')
-};
-
-
 
 // Function to resize navbar 
 
@@ -123,4 +158,10 @@ function hideLoading() {
 // }
 
 
-
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
