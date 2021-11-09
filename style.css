@@ -82,6 +82,12 @@ main {
     text-align: end;
 }
 
+@media only screen and (max-width: 580px) {
+    .char-card {
+        margin: 5px;
+    }
+  }
+
 /* Detail Card */
 .card-detail {
     position: fixed;
