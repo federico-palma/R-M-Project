@@ -21,14 +21,58 @@ main {
     background-color: #0b818b;
     box-shadow: 0px 0px 2px 3px  #0b818b;
     z-index: 100;
+    display: flex;
 }
 
 #logo {
-    width: 10%;
-    min-width: 180px;
+    position: absolute;
+    width: 15%;
+    min-width: 150px;
     max-height: 95%;
-    background-color: #0b818b;
-    margin: 0px 50px;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0px 30px;
+}
+
+/* Search bar */
+#search-bar{
+    margin: auto;
+    width: 25%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #01b4c6;
+}
+
+#search-input{
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+    width: 90%;
+    min-width: 100px;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 1.3em;
+}
+
+#search-btn{
+    margin: 0px;
+    padding: 0px;
+    width: 10%;
+    min-width: 40px;
+    height: 100%;
+    border-style: none;
+    border-left: 1px solid black;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#search-btn:hover {
+    cursor: pointer;
 }
 
 /* Main cards section */
@@ -90,6 +134,7 @@ main {
     height: 520px;
     background-color: #BEE5fD;
     box-shadow: 2px 2px 5px 1px;
+    border-radius: 10px;
     z-index: 10;
     margin: auto;
     margin-top: 70px;
