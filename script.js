@@ -148,7 +148,7 @@ let searchBtn = document.getElementById('search-btn')
 
 searchBtn.addEventListener('click', () => {
     resetCardTable();
-    resetCardTable();
+    
 })
 
 

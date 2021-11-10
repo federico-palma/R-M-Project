@@ -54,17 +54,17 @@ main {
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: black;
     opacity: 0.6; /* Firefox */
-  }
+}
 
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: black;
     opacity: 0.6;
-  }
+}
   
   ::-ms-input-placeholder { /* Microsoft Edge */
     color: black;
     opacity: 0.6;
-  }
+}
 
 #search-input{
     margin: 0px;
