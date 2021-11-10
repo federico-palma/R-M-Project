@@ -3,6 +3,13 @@ let apiData;
 let charApiData;
 let cardTable = document.getElementById('card-table');
 
+// Function resets the cardtable.
+function resetCardTable() {
+    while (cardTable.firstChild) {
+        cardTable.removeChild(cardTable.lastChild);
+    }
+}
+
 // Functions add and remove loading animation.
 let loadingAnimElements = document.getElementById('loading');
 
@@ -86,15 +93,15 @@ async function setCharContent(apiUrl) {
 }
 
 // Test function waits for content to be loaded, while showing and hiding loading animation.
-function loadNewContent() {
-    let test = setCharContent(apiData.info.next)
-    sleep(2000);
-    while (test == 0) {
+// function loadNewContent() {
+//     let test = setCharContent(apiData.info.next)
+//     sleep(2000);
+//     while (test == 0) {
 
-    }
+//     }
     
 
-}
+// }
 
 // Set initial cards.
 setCharContent(baseApiUrl);
@@ -104,7 +111,6 @@ let detailsCard = document.querySelector('.card-detail');
 
 async function showDetailsCard(charID, borderColor) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
-    console.log(charApiData);
     detailsCard.classList.add('show-detail-card')
 
     document.getElementById('char-id-detail').innerText = charID;
@@ -122,7 +128,7 @@ closeBtn.addEventListener('click', () => {
     detailsCard.classList.remove('show-detail-card')
 });
 
-// Event listener for infinte scrolling and loading animation.
+// Event listener for infinte scrolling.
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
@@ -135,6 +141,17 @@ window.addEventListener('scroll', () => {
         console.log('All characters loaded.')
     }
 });
+
+// Search function
+let searchInput = document.getElementById('search-bar')
+let searchBtn = document.getElementById('search-btn')
+
+searchBtn.addEventListener('click', () => {
+    resetCardTable();
+    resetCardTable();
+})
+
+
 
 // Function to resize navbar 
 
