@@ -57,7 +57,7 @@ async function setCharContent(apiUrl) {
                 showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow);
             });
             cardTable.appendChild(cardElements[0]);
-
+            
             // Modify border based on gender of character
             switch (apiData.results[i].gender) {
                 case 'Male':
@@ -80,20 +80,6 @@ async function setCharContent(apiUrl) {
     } else {
         console.log('API Data not loaded');
     }
-
-    // test
-    return 1
-}
-
-// Test function waits for content to be loaded, while showing and hiding loading animation.
-function loadNewContent() {
-    let test = setCharContent(apiData.info.next)
-    sleep(2000);
-    while (test == 0) {
-
-    }
-    
-
 }
 
 // Set initial cards.
@@ -112,7 +98,9 @@ async function showDetailsCard(charID, borderColor) {
     document.getElementById('char-img-detail').style.boxShadow = borderColor
     document.getElementById("char-name-detail").innerText = charApiData.name;
     document.getElementById("char-gender-detail").innerText = charApiData.gender;
+    document.getElementById("char-species-detail").innerText = charApiData.species;
     document.getElementById("char-origin-detail").innerText = charApiData.origin.name;
+    document.getElementById("char-location-detail").innerText = charApiData.location.name;
     document.getElementById("char-status-detail").innerText = charApiData.status;
 }
 
@@ -156,7 +144,6 @@ window.addEventListener('scroll', () => {
 //         }
 //     }
 // }
-
 
 function sleep(milliseconds) {
     const date = Date.now();

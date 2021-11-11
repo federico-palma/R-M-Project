@@ -71,6 +71,7 @@ main {
     margin: auto;
     text-align: center;
     background-color: #BEE5fD;
+    padding: 2px;
 }
 
 .char-id {
@@ -93,12 +94,12 @@ main {
     position: fixed;
     width: 400px;
     max-width: 90%;
-    height: 520px;
+    height: 600px;
     background-color: #BEE5fD;
     box-shadow: 2px 2px 5px 1px;
     z-index: 10;
     margin: auto;
-    margin-top: 70px;
+    margin-top: 40px;
     padding: 20px;
     top: 10%;
     left: 50%;
@@ -125,9 +126,18 @@ main {
     cursor: pointer;
 }
 
+#char-img-detail {
+    max-width: 80%;
+    max-height: 90%;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 0px 0px 5px 5px #F675Da;
+}
+
 #char-detail-list {
     padding: 0;
-    margin: 30px auto;
+    margin: 15px auto;
+    margin-left: 2px;
     list-style-type: none;
 }
 
@@ -145,14 +155,6 @@ main {
     position: absolute;
     right: 10px;
     top: -7px;
-}
-
-#char-img-detail {
-    max-width: 80%;
-    max-height: 90%;
-    margin: auto;
-    margin-top: 20px;
-    box-shadow: 0px 0px 5px 5px #F675Da;
 }
 
 /* FadeIn animation for details card */
