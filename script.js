@@ -40,10 +40,13 @@ function createCardElements() {
     return [newCharCardDiv, newCharImg, newCharName, newCharIdNum];
 };
 
-// Function creates New Character Cards, sets content on them and appends them to card table.
+// Function calls createCardElements(), sets content on them and appends them to card table.
 async function setCharContent(apiUrl) {
+    showLoading()
     apiData = await fetchApi(apiUrl);
-
+    let counter = 0
+    let cardList = []
+    
     if (apiData !== null) {
         for (let i = 0; i < apiData.results.length; i++) {
             let cardElements = createCardElements()
@@ -56,8 +59,7 @@ async function setCharContent(apiUrl) {
             cardElements[0].addEventListener('click', () => {
                 showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow);
             });
-            cardTable.appendChild(cardElements[0]);
-            
+               
             // Modify border based on gender of character
             switch (apiData.results[i].gender) {
                 case 'Male':
@@ -76,6 +78,26 @@ async function setCharContent(apiUrl) {
                     cardElements[1].style.boxShadow = '0px 0px 5px 5px #f60fe3'
                     break;
             }
+            
+            // Checks that Img has loaded before appending
+            cardElements[1].addEventListener('load', () => {
+                // sleep(100)
+                counter ++
+                cardList.push(cardElements[0])
+                
+                if (counter == apiData.results.length) {
+                    cardList.sort((a, b) => {
+                        console.log(a.lastElementChild.textContent)
+                        console.log(b.lastElementChild.textContent)
+                        a.lastElementChild.textContent - b.lastElementChild.textContent
+                    });
+
+                    for (const card of cardList) {
+                        cardTable.appendChild(card);
+                    }
+                    hideLoading();
+                }
+            });
         }
     } else {
         console.log('API Data not loaded');
@@ -83,7 +105,7 @@ async function setCharContent(apiUrl) {
 }
 
 // Set initial cards.
-setCharContent(baseApiUrl);
+setCharContent(baseApiUrl)
 
 // Details card code.
 let detailsCard = document.querySelector('.card-detail');
@@ -114,11 +136,8 @@ closeBtn.addEventListener('click', () => {
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
-        // showLoading()
-        // loadNewContent()
         setCharContent(apiData.info.next);
-        
-        // hideLoading();
+
     } else if (scrollTop + clientHeight >= scrollHeight && apiData.info.next == null){
         console.log('All characters loaded.')
     }
