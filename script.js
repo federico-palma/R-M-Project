@@ -2,6 +2,7 @@ const baseApiUrl = 'https://rickandmortyapi.com/api/character';
 let apiData;
 let charApiData;
 let cardTable = document.getElementById('card-table');
+let message = document.getElementById('message');
 
 // Function resets the cardtable.
 function resetCardTable() {
@@ -49,6 +50,7 @@ function createCardElements() {
 
 // Function calls createCardElements(), sets content on them and appends them to card table.
 async function setCharContent(apiUrl) {
+    message.innerHTML = ''
     showLoading()
     apiData = await fetchApi(apiUrl);
     let counter = 0
@@ -94,8 +96,8 @@ async function setCharContent(apiUrl) {
                 
                 if (counter == apiData.results.length) {
                     cardList.sort((a, b) => {
-                        console.log(a.lastElementChild.textContent)
-                        console.log(b.lastElementChild.textContent)
+                        // console.log(a.lastElementChild.textContent)
+                        // console.log(b.lastElementChild.textContent)
                         a.lastElementChild.textContent - b.lastElementChild.textContent
                     });
 
@@ -109,25 +111,7 @@ async function setCharContent(apiUrl) {
     } else {
         console.log('API Data not loaded');
     }
-<<<<<<< HEAD
-
-    // test
-    return 1
 }
-
-// Test function waits for content to be loaded, while showing and hiding loading animation.
-// function loadNewContent() {
-//     let test = setCharContent(apiData.info.next)
-//     sleep(2000);
-//     while (test == 0) {
-
-//     }
-    
-
-// }
-=======
-}
->>>>>>> main
 
 // Set initial cards.
 setCharContent(baseApiUrl)
@@ -168,15 +152,25 @@ window.addEventListener('scroll', () => {
 });
 
 // Search function
-let searchInput = document.getElementById('search-bar')
+let searchInput = document.getElementById('search-input')
 let searchBtn = document.getElementById('search-btn')
 
 searchBtn.addEventListener('click', () => {
     resetCardTable();
-    
+    filterCharByName(searchInput.value)
 })
 
+// Function takes searchbar input, and calls setCharContent() to fetch and post filtered character by name.
+async function filterCharByName(searchInput) {
+    let lowerCaseInput = searchInput.toLowerCase();
+    let filteredApiData = await fetchApi(baseApiUrl + '/?name=' + lowerCaseInput);
 
+    if (filteredApiData['error'] == 'There is nothing here') {
+        message.innerHTML = "There's no character with the name: '" + searchInput + "'";
+    } else {
+        setCharContent(baseApiUrl + '/?name=' + lowerCaseInput);
+    }
+}
 
 // Function to resize navbar 
 
