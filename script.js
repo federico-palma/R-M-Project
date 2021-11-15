@@ -90,19 +90,18 @@ async function setCharContent(apiUrl) {
             
             // Checks that Img has loaded before appending
             cardElements[1].addEventListener('load', () => {
-                // sleep(100)
+                sleep(80)
                 counter ++
                 cardList.push(cardElements[0])
                 
                 if (counter == apiData.results.length) {
                     cardList.sort((a, b) => {
-                        // console.log(a.lastElementChild.textContent)
-                        // console.log(b.lastElementChild.textContent)
-                        a.lastElementChild.textContent - b.lastElementChild.textContent
+                        return a.lastElementChild.textContent - b.lastElementChild.textContent;
                     });
 
                     for (const card of cardList) {
                         cardTable.appendChild(card);
+                        console.log('result: ' + card.lastElementChild.textContent);
                     }
                     hideLoading();
                 }
@@ -141,11 +140,12 @@ closeBtn.addEventListener('click', () => {
 });
 
 // Show all characters button.
-let allCharBtn = document.getElementById('allChar');
+let allCharBtn = document.getElementById('allCharBtn');
 allCharBtn.addEventListener('click', showAllChar);
-function showAllChar(params) {
-    resetCardTable()
-    setCharContent(baseApiUrl)
+function showAllChar() {
+    window.scrollTo(0, 0);
+    resetCardTable();
+    setCharContent(baseApiUrl);
 }
 
 // Search function
@@ -154,16 +154,16 @@ let searchBtn = document.getElementById('search-btn')
 
 searchBtn.addEventListener('click', () => {
     resetCardTable();
-    filterCharByName(searchInput.value)
+    filterCharByName(searchInput.value);
 })
 
 // Function takes searchbar input, and calls setCharContent() to fetch and post filtered character by name.
-async function filterCharByName(searchInput) {
-    let lowerCaseInput = searchInput.toLowerCase();
+async function filterCharByName(input) {
+    let lowerCaseInput = input.toLowerCase();
     let filteredApiData = await fetchApi(baseApiUrl + '/?name=' + lowerCaseInput);
 
     if (filteredApiData['error'] == 'There is nothing here') {
-        message.innerHTML = "There's no character with the name: '" + searchInput + "'";
+        message.innerHTML = "There's no character with the name: '" + input + "'";
     } else {
         setCharContent(baseApiUrl + '/?name=' + lowerCaseInput);
     }
