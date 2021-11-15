@@ -140,16 +140,13 @@ closeBtn.addEventListener('click', () => {
     detailsCard.classList.remove('show-detail-card')
 });
 
-// Event listener for infinte scrolling.
-window.addEventListener('scroll', () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
-        setCharContent(apiData.info.next);
-
-    } else if (scrollTop + clientHeight >= scrollHeight && apiData.info.next == null){
-        console.log('All characters loaded.')
-    }
-});
+// Show all characters button.
+let allCharBtn = document.getElementById('allChar');
+allCharBtn.addEventListener('click', showAllChar);
+function showAllChar(params) {
+    resetCardTable()
+    setCharContent(baseApiUrl)
+}
 
 // Search function
 let searchInput = document.getElementById('search-input')
@@ -172,6 +169,17 @@ async function filterCharByName(searchInput) {
     }
 }
 
+// Event listener for infinte scrolling.
+window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
+        setCharContent(apiData.info.next);
+
+    } else if (scrollTop + clientHeight >= scrollHeight && apiData.info.next == null){
+        console.log('All characters loaded.')
+    }
+});
+
 // Function to resize navbar 
 
 // function scrollFunction() {
@@ -193,6 +201,7 @@ async function filterCharByName(searchInput) {
 //     }
 // }
 
+// Test function to add time to a task
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
