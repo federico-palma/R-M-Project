@@ -6,6 +6,7 @@ let message = document.getElementById('message');
 
 // Function resets the cardtable.
 function resetCardTable() {
+    window.scrollTo(0, 0);
     while (cardTable.firstChild) {
         cardTable.removeChild(cardTable.lastChild);
     }
@@ -101,7 +102,6 @@ async function setCharContent(apiUrl) {
 
                     for (const card of cardList) {
                         cardTable.appendChild(card);
-                        console.log('result: ' + card.lastElementChild.textContent);
                     }
                     hideLoading();
                 }
@@ -143,7 +143,6 @@ closeBtn.addEventListener('click', () => {
 let allCharBtn = document.getElementById('allCharBtn');
 allCharBtn.addEventListener('click', showAllChar);
 function showAllChar() {
-    window.scrollTo(0, 0);
     resetCardTable();
     setCharContent(baseApiUrl);
 }

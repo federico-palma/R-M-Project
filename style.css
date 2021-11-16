@@ -47,7 +47,7 @@ main {
 
 #allCharBtn {
     font-size: 1.3em;
-    color: #01b4c6;
+    color:  #FFF874;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     display: block;
 }
@@ -58,10 +58,16 @@ main {
 }
 
 /* Search bar */
-#search-bar{
+#search-field {
     margin-right: 30px;
     margin-left: auto;
     width: 25%;
+    min-width: 200px;
+    height: 40px;
+}
+
+#search-bar{
+    width: 100%;
     min-width: 200px;
     height: 40px;
     display: flex;
@@ -114,6 +120,77 @@ main {
 
 #search-btn:hover {
     cursor: pointer;
+}
+
+/* Filters */
+.filter-btn{
+    margin: auto;
+    background-color: #01b4c6;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.filter-btn:hover{
+    cursor: pointer;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin: 2px 4px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+  }
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+#filters {
+    background-color: #01b4c6;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.8em;
+}
+
+select{
+    width: 110px;
+}
+
+.filter{
+    margin: 0px 10px;
+    width: 60px;
+}
+
+#status-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#species-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#gender-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
 }
 
 /* Main cards section */

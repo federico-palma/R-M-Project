@@ -16,11 +16,52 @@
                 <ul id="navbarList">
                     <li id="allCharBtn">All Characters</li>
                 </ul>
-                <div id="search-bar">
-                    <input type="text" id="search-input" placeholder="Search by name">
-                    <button id="search-btn" class="material-icons">
-                        <span class="material-icons">search</span>
-                    </button>
+                <div id="search-field">
+                    <div id="search-bar">
+                        <input type="text" id="search-input" placeholder="Search by name">
+                        <button id="search-btn" class="material-icons">
+                            <span class="material-icons">search</span>
+                        </button>
+                    </div>
+                    <button class="filter-btn" id="show-filter-btn">Show filters<i class="arrow down"></i></button>
+                    <div id="filters">
+                        <div id="status-div">
+                            <h3 class="filter">Status:</h3>
+                            <select name="status-select" id="status-select">
+                                <option value=""></option>
+                                <option value="Alive">Alive</option>
+                                <option value="Dead">Dead</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+                        <div id="species-div">
+                            <h3 class="filter">Species:</h3>
+                            <select name="species-select" id="species-select">
+                                <option value=""></option>
+                                <option value="Human">Human</option>
+                                <option value="Humanoid">Humanoid</option>
+                                <option value="Animal">Animal</option>
+                                <option value="Alien">Alien</option>
+                                <option value="Disease">Disease</option>
+                                <option value="Poopybutthole">Poopybutthole</option>
+                                <option value="Mythological Creature">Mythological Creature</option>
+                                <option value="Cronenberg">Cronenberg</option>
+                                <option value="Robot">Robot</option>
+                                <option value="unknown">unknown</option>
+                            </select>
+                        </div>
+                        <div id="gender-div">
+                            <h3 class="filter">Gender:</h3>
+                            <select name="gender-select" id="gender-select">
+                                <option value=""></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Genderless">Genderless</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+                        <button class="filter-btn" id="reset-filter-btn">Reset filters</button>
+                    </div>
                 </div>
             </nav>
             <h2 id="message"></h2>
