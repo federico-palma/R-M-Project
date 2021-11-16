@@ -75,6 +75,7 @@ main {
     justify-content: center;
     border: 1px solid black;
     border-radius: 10px;
+    border-bottom-left-radius: 0px;
     background-color: #01b4c6;
 }
 
@@ -134,6 +135,12 @@ main {
     cursor: pointer;
 }
 
+#show-filter-btn{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top: none;
+}
+
 .arrow {
     border: solid black;
     border-width: 0 3px 3px 0;
@@ -144,6 +151,7 @@ main {
 
 .up {
     transform: rotate(-135deg);
+    transform: translateY(10px);
     -webkit-transform: rotate(-135deg);
   }
 
@@ -152,15 +160,22 @@ main {
     -webkit-transform: rotate(45deg);
 }
 
-#filters {
+.filters-tab {
     background-color: #01b4c6;
     border: 1px solid black;
     border-radius: 10px;
-    width: 200px;
+    width: 205px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     font-size: 0.8em;
+    visibility: hidden;
+}
+
+.show-filter-tab {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s
 }
 
 select{
@@ -191,6 +206,11 @@ select{
     align-items: center;
     justify-content: center;
     height: 30px;
+}
+
+#reset-filter-btn{
+    margin: 4px auto;
+    padding: 3px;
 }
 
 /* Main cards section */
@@ -334,7 +354,7 @@ select{
     top: -7px;
 }
 
-/* FadeIn animation for details card */
+/* FadeIn animation for details card and filters tab*/
 .show-detail-card {
     visibility: visible;
     -webkit-animation: fadeIn 0.3s;

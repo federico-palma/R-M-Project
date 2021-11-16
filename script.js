@@ -168,6 +168,24 @@ async function filterCharByName(input) {
     }
 }
 
+// Searching filters
+let filtersTab = document.querySelector('.filters-tab')
+let filtersBtn = document.getElementById('show-filter-btn')
+let filterArrow = document.getElementById('filter-arrow')
+filtersBtn.addEventListener('click', () => {
+    if (filterArrow.classList[1] == 'down') {
+        filterArrow.classList.remove('down')
+        filterArrow.classList.add('up')
+        filtersTab.classList.add('show-filter-tab');
+        filtersBtn.childNodes[0].textContent = 'Hide filters';
+    } else {
+        filterArrow.classList.remove('up')
+        filterArrow.classList.add('down')
+        filtersTab.classList.remove('show-filter-tab');
+        filtersBtn.childNodes[0].textContent = 'Show filters';
+    }
+});
+
 // Event listener for infinte scrolling.
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
