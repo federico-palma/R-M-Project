@@ -147,31 +147,45 @@ function showAllChar() {
     setCharContent(baseApiUrl);
 }
 
-// Search function
+// Search function.
 let searchInput = document.getElementById('search-input')
 let searchBtn = document.getElementById('search-btn')
 
 searchBtn.addEventListener('click', () => {
     resetCardTable();
-    filterCharByName(searchInput.value);
+    searchFilterChar(searchInput.value);
 })
 
-// Function takes searchbar input, and calls setCharContent() to fetch and post filtered character by name.
-async function filterCharByName(input) {
-    let lowerCaseInput = input.toLowerCase();
-    let filteredApiData = await fetchApi(baseApiUrl + '/?name=' + lowerCaseInput);
+// Searching filters.
+let filtersTab = document.querySelector('.filters-tab');
+let filtersBtn = document.getElementById('show-filter-btn');
+let filterArrow = document.getElementById('filter-arrow');
 
-    if (filteredApiData['error'] == 'There is nothing here') {
-        message.innerHTML = "There's no character with the name: '" + input + "'";
-    } else {
-        setCharContent(baseApiUrl + '/?name=' + lowerCaseInput);
-    }
-}
+let statusFilter = '';
+let statusSelect = document.getElementById('status-select');
+statusSelect.onchange = () => {statusFilter = statusSelect.value};
 
-// Searching filters
-let filtersTab = document.querySelector('.filters-tab')
-let filtersBtn = document.getElementById('show-filter-btn')
-let filterArrow = document.getElementById('filter-arrow')
+let speciesFilter = '';
+let speciesSelect = document.getElementById('species-select');
+speciesSelect.onchange = () => {speciesFilter = speciesSelect.value};
+
+let genderFilter = '';
+let genderSelect = document.getElementById('gender-select');
+genderSelect.onchange = () => {genderFilter = genderSelect.value};
+
+// Reset filters button.
+let resetFilterBtn = document.getElementById('reset-filter-btn');
+resetFilterBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    statusFilter = '';
+    statusSelect.value = '';
+    speciesFilter = '';
+    speciesSelect.value = '';
+    genderFilter = '';
+    genderSelect.value = '';
+});
+
+// Event Listener to show search filters.
 filtersBtn.addEventListener('click', () => {
     if (filterArrow.classList[1] == 'down') {
         filterArrow.classList.remove('down')
@@ -185,6 +199,34 @@ filtersBtn.addEventListener('click', () => {
         filtersBtn.childNodes[0].textContent = 'Show filters';
     }
 });
+
+// Function takes searchbar input, and calls setCharContent() to fetch and post filtered character by name.
+async function searchFilterChar(input) {
+    let filteredUrl = baseApiUrl + '/?'
+
+    let lowerCaseInput = input.toLowerCase();
+    if (searchInput.value != '') {
+        filteredUrl += 'name=' + lowerCaseInput;
+    }
+    if (statusFilter != '') {
+        filteredUrl += '&status=' + statusFilter;
+    }
+    if (speciesFilter != '') {
+        filteredUrl += '&species=' + speciesFilter;
+    }
+    if (genderFilter != '') {
+        filteredUrl += '&gender=' + genderFilter;
+    }
+
+    let filteredApiData = await fetchApi(filteredUrl);
+    console.log(filteredUrl)
+
+    if (filteredApiData['error'] == 'There is nothing here') {
+        message.innerHTML = "There's no character with the name: '" + input + "'";
+    } else {
+        setCharContent(filteredUrl);
+    }
+}
 
 // Event listener for infinte scrolling.
 window.addEventListener('scroll', () => {
