@@ -7,14 +7,69 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
         <main>
             <nav id="navbar">
                 <img src="images/RickAndMortyLogo.png" alt="Rick and Morty logo PNG" id="logo">
+                <ul id="navbarList">
+                    <li id="allCharBtn">All Characters</li>
+                </ul>
+                <div id="search-field">
+                    <div id="search-bar">
+                        <input type="text" id="search-input" placeholder="Search by name">
+                        <button id="search-btn" class="material-icons">
+                            <span class="material-icons">search</span>
+                        </button>
+                    </div>
+                    <button class="filter-btn" id="show-filter-btn">Show filters<i class="arrow down" id="filter-arrow"></i></button>
+                    <div class="filters-tab">
+                        <div id="status-div">
+                            <h3 class="filter">Status:</h3>
+                            <select name="status-select" id="status-select">
+                                <option value=""></option>
+                                <option value="alive">Alive</option>
+                                <option value="dead">Dead</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+                        <div id="species-div">
+                            <h3 class="filter">Species:</h3>
+                            <select name="species-select" id="species-select">
+                                <option value=""></option>
+                                <option value="human">Human</option>
+                                <option value="humanoid">Humanoid</option>
+                                <option value="animal">Animal</option>
+                                <option value="alien">Alien</option>
+                                <option value="disease">Disease</option>
+                                <option value="poopybutthole">Poopybutthole</option>
+                                <option value="mythological Creature">Mythological Creature</option>
+                                <option value="cronenberg">Cronenberg</option>
+                                <option value="robot">Robot</option>
+                                <option value="unknown">unknown</option>
+                            </select>
+                        </div>
+                        <div id="gender-div">
+                            <h3 class="filter">Gender:</h3>
+                            <select name="gender-select" id="gender-select">
+                                <option value=""></option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="genderless">Genderless</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+                        <button class="filter-btn" id="reset-filter-btn">Reset filters</button>
+                    </div>
+                </div>
             </nav>
+            <h2 id="message"></h2>
+
             <div id="card-table">
             </div>
+            
+
             <div class="card-detail">
                 <button id="close-btn">X</button>
                 <p id="char-id-detail"></p>

@@ -21,14 +21,196 @@ main {
     background-color: #0b818b;
     box-shadow: 0px 0px 2px 3px  #0b818b;
     z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #logo {
-    width: 10%;
-    min-width: 180px;
+    /* position: absolute; */
+    width: 15%;
+    min-width: 150px;
     max-height: 95%;
-    background-color: #0b818b;
-    margin: 0px 50px;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0px 30px;
+    margin-right: auto;
+}
+
+#navbarList {
+    list-style: none;
+}
+
+#navbarList li{
+    display: inline-block;
+    margin: 10px;
+}
+
+#allCharBtn {
+    font-size: 1.3em;
+    color:  #FFF874;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    display: block;
+}
+
+#allCharBtn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Search bar */
+#search-field {
+    margin-right: 30px;
+    margin-left: auto;
+    width: 25%;
+    min-width: 200px;
+    height: 40px;
+}
+
+#search-bar{
+    width: 100%;
+    min-width: 200px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    background-color: #01b4c6;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 0.6; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+    opacity: 0.6;
+}
+  
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+    opacity: 0.6;
+}
+
+#search-input{
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+    width: 90%;
+    min-width: 100px;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 1.3em;
+}
+
+#search-btn{
+    margin: 0px;
+    padding: 0px;
+    width: 10%;
+    min-width: 40px;
+    height: 100%;
+    border-style: none;
+    border-left: 1px solid black;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#search-btn:hover {
+    cursor: pointer;
+}
+
+/* Filters */
+.filter-btn{
+    margin: auto;
+    background-color: #01b4c6;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.filter-btn:hover{
+    cursor: pointer;
+}
+
+#show-filter-btn{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top: none;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin: 2px 4px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    transform: translateY(10px);
+    -webkit-transform: rotate(-135deg);
+  }
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.filters-tab {
+    background-color: #01b4c6;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 205px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.8em;
+    visibility: hidden;
+}
+
+.show-filter-tab {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s
+}
+
+select{
+    width: 110px;
+}
+
+.filter{
+    margin: 0px 10px;
+    width: 60px;
+}
+
+#status-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#species-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#gender-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+#reset-filter-btn{
+    margin: 4px auto;
+    padding: 3px;
 }
 
 /* Main cards section */
@@ -70,7 +252,7 @@ main {
 .char-name{
     margin: auto;
     text-align: center;
-    background-color: #BEE5fD;
+    background-color: rgba(0, 0, 0, 0);
     padding: 2px;
 }
 
@@ -87,7 +269,21 @@ main {
     .char-card {
         margin: 5px;
     }
-  }
+}
+
+#message {
+    position: absolute;
+    left: 0;
+    right: 0;
+    min-width: 60%;
+    margin: auto;
+    margin-top: 10%;
+    font-size: 2rem;
+    text-align: center;
+    z-index: 50;
+    color: rgba(0, 0, 0, 0.7);
+    
+}
 
 /* Detail Card */
 .card-detail {
@@ -97,6 +293,7 @@ main {
     height: 600px;
     background-color: #BEE5fD;
     box-shadow: 2px 2px 5px 1px;
+    border-radius: 10px;
     z-index: 10;
     margin: auto;
     margin-top: 40px;
@@ -157,7 +354,7 @@ main {
     top: -7px;
 }
 
-/* FadeIn animation for details card */
+/* FadeIn animation for details card and filters tab*/
 .show-detail-card {
     visibility: visible;
     -webkit-animation: fadeIn 0.3s;
