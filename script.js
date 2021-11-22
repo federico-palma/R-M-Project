@@ -141,33 +141,51 @@ closeBtn.addEventListener('click', () => {
 
 // Show all characters button.
 let allCharBtn = document.getElementById('allCharBtn');
-allCharBtn.addEventListener('click', showAllChar);
+allCharBtn.addEventListener('click', () => {
+    showAllChar();
+    resetFilters();
+});
+
 function showAllChar() {
     resetCardTable();
     setCharContent(baseApiUrl);
 }
 
 // Search feature.
-// Searching filters.
+// Searching filters, with event listener for search on input.
 let filtersTab = document.querySelector('.filters-tab');
 let filtersBtn = document.getElementById('show-filter-btn');
 let filterArrow = document.getElementById('filter-arrow');
 
 let statusFilter = '';
 let statusSelect = document.getElementById('status-select');
-statusSelect.onchange = () => {statusFilter = statusSelect.value};
+statusSelect.onchange = () => {
+    statusFilter = statusSelect.value;
+    searchOnInput();
+};
 
 let speciesFilter = '';
 let speciesSelect = document.getElementById('species-select');
-speciesSelect.onchange = () => {speciesFilter = speciesSelect.value};
+speciesSelect.onchange = () => {
+    speciesFilter = speciesSelect.value;
+    searchOnInput();
+};
 
 let genderFilter = '';
 let genderSelect = document.getElementById('gender-select');
-genderSelect.onchange = () => {genderFilter = genderSelect.value};
+genderSelect.onchange = () => {
+    genderFilter = genderSelect.value;
+    searchOnInput();
+};
 
 // Reset filters button.
 let resetFilterBtn = document.getElementById('reset-filter-btn');
 resetFilterBtn.addEventListener('click', () => {
+    resetFilters()
+    searchOnInput();
+});
+
+function resetFilters() {
     searchInput.value = '';
     statusFilter = '';
     statusSelect.value = '';
@@ -175,7 +193,7 @@ resetFilterBtn.addEventListener('click', () => {
     speciesSelect.value = '';
     genderFilter = '';
     genderSelect.value = '';
-});
+}
 
 // Event Listener to show search filters.
 filtersBtn.addEventListener('click', () => {
