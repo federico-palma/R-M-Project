@@ -61,7 +61,7 @@ main {
 #search-field {
     margin-right: 30px;
     margin-left: auto;
-    width: 25%;
+    width: 20%;
     min-width: 200px;
     height: 40px;
 }
@@ -97,7 +97,6 @@ main {
 #search-input{
     margin: 0px;
     padding: 0px;
-    padding-left: 10px;
     width: 90%;
     min-width: 100px;
     height: 100%;
@@ -105,18 +104,6 @@ main {
     outline: none;
     background-color: rgba(0, 0, 0, 0);
     font-size: 1.3em;
-}
-
-#search-btn{
-    margin: 0px;
-    padding: 0px;
-    width: 10%;
-    min-width: 40px;
-    height: 100%;
-    border-style: none;
-    border-left: 1px solid black;
-    outline: none;
-    background-color: rgba(0, 0, 0, 0);
 }
 
 #search-btn:hover {

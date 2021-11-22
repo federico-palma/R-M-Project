@@ -91,7 +91,6 @@ async function setCharContent(apiUrl) {
             
             // Checks that Img has loaded before appending
             cardElements[1].addEventListener('load', () => {
-                sleep(80)
                 counter ++
                 cardList.push(cardElements[0])
                 
@@ -109,6 +108,7 @@ async function setCharContent(apiUrl) {
         }
     } else {
         console.log('API Data not loaded');
+        hideLoading();
     }
 }
 
@@ -147,15 +147,7 @@ function showAllChar() {
     setCharContent(baseApiUrl);
 }
 
-// Search function.
-let searchInput = document.getElementById('search-input')
-let searchBtn = document.getElementById('search-btn')
-
-searchBtn.addEventListener('click', () => {
-    resetCardTable();
-    searchFilterChar(searchInput.value);
-})
-
+// Search feature.
 // Searching filters.
 let filtersTab = document.querySelector('.filters-tab');
 let filtersBtn = document.getElementById('show-filter-btn');
@@ -228,6 +220,22 @@ async function searchFilterChar(input) {
     }
 }
 
+// Search on input function.
+let searchInput = document.getElementById('search-input')
+let timer;
+searchInput.addEventListener('keyup', searchOnInput);
+
+function searchOnInput() {
+    showLoading();
+    clearTimeout(timer);
+    timer = setTimeout(searchFunctions, 1500);
+};
+
+function searchFunctions() {
+    resetCardTable();
+    searchFilterChar(searchInput.value);
+};
+
 // Event listener for infinte scrolling.
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -238,27 +246,6 @@ window.addEventListener('scroll', () => {
         console.log('All characters loaded.')
     }
 });
-
-// Function to resize navbar 
-
-// function scrollFunction() {
-//     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-//         document.getElementById("header-img").style.width = "100px";
-//         document.getElementById("header").style.height = "60px";
-//         document.getElementById("cts").classList.add("cts-anim-class");
-//         if (screen.width < 635) {
-//             document.getElementById("nav-bar").style.flexDirection = "row";
-//         }
-        
-//     } else {
-//         document.getElementById("header-img").style.width = "170px";
-//         document.getElementById("header").style.height = "120px";
-//         document.getElementById("cts").classList.remove("cts-anim-class");
-//         if (screen.width < 635) {
-//             document.getElementById("nav-bar").style.flexDirection = "column";
-//         }
-//     }
-// }
 
 // Test function to add time to a task
 function sleep(milliseconds) {
