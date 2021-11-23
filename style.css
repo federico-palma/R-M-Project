@@ -343,8 +343,8 @@ select{
     top: -7px;
 }
 
-/* FadeIn animation for details card and filters tab*/
-.show-detail-card {
+/* FadeIn animation for cards and filters*/
+.show-card {
     visibility: visible;
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s

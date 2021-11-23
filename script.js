@@ -102,7 +102,7 @@ async function setCharContent(apiUrl) {
 
                     for (const card of cardList) {
                         cardTable.appendChild(card);
-                        card.classList.add('show-detail-card');
+                        card.classList.add('show-card');
                     }
                     hideLoading(mainLoadingAnimElements);
                 }
@@ -122,7 +122,7 @@ let detailsCard = document.querySelector('.card-detail');
 
 async function showDetailsCard(charID, borderColor) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
-    detailsCard.classList.add('show-detail-card')
+    detailsCard.classList.add('show-card')
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
@@ -138,7 +138,7 @@ async function showDetailsCard(charID, borderColor) {
 // Close details card.
 let closeBtn = document.getElementById('close-btn');
 closeBtn.addEventListener('click', () => {
-    detailsCard.classList.remove('show-detail-card')
+    detailsCard.classList.remove('show-card')
 });
 
 // Show all characters button.
