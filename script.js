@@ -13,14 +13,15 @@ function resetCardTable() {
 }
 
 // Functions add and remove loading animation.
-let loadingAnimElements = document.getElementById('loading');
+let mainLoadingAnimElements = document.getElementById('main-loading');
+let searchLoadingAnimElements = document.getElementById('search-loading');
 
-function showLoading() {
-    loadingAnimElements.style.opacity = 1;
+function showLoading(loadingElement) {
+    loadingElement.style.opacity = 1;
 };
 
-function hideLoading() {
-    loadingAnimElements.style.opacity = 0;
+function hideLoading(loadingElement) {
+    loadingElement.style.opacity = 0;
 };
 
 // Function fetches API, returns data in json format.
@@ -52,7 +53,7 @@ function createCardElements() {
 // Function calls createCardElements(), sets content on them and appends them to card table.
 async function setCharContent(apiUrl) {
     message.innerHTML = ''
-    showLoading()
+    showLoading(mainLoadingAnimElements)
     apiData = await fetchApi(apiUrl);
     let counter = 0
     let cardList = []
@@ -102,13 +103,13 @@ async function setCharContent(apiUrl) {
                     for (const card of cardList) {
                         cardTable.appendChild(card);
                     }
-                    hideLoading();
+                    hideLoading(mainLoadingAnimElements);
                 }
             });
         }
     } else {
         console.log('API Data not loaded');
-        hideLoading();
+        hideLoading(mainLoadingAnimElements);
     }
 }
 
@@ -236,6 +237,7 @@ async function searchFilterChar(input) {
     } else {
         setCharContent(filteredUrl);
     }
+    hideLoading(searchLoadingAnimElements);
 }
 
 // Search on input function.
@@ -244,7 +246,7 @@ let timer;
 searchInput.addEventListener('keyup', searchOnInput);
 
 function searchOnInput() {
-    showLoading();
+    showLoading(searchLoadingAnimElements);
     clearTimeout(timer);
     timer = setTimeout(searchFunctions, 1500);
 };
