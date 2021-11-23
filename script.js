@@ -102,6 +102,7 @@ async function setCharContent(apiUrl) {
 
                     for (const card of cardList) {
                         cardTable.appendChild(card);
+                        card.classList.add('show-detail-card');
                     }
                     hideLoading(mainLoadingAnimElements);
                 }

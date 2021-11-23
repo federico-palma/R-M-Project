@@ -222,6 +222,7 @@ select{
     background-color: #BEE5fD;
     display: grid;
     grid-row: 70% 20%;
+    visibility: hidden;
 }
 
 .char-card:hover {
