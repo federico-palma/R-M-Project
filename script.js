@@ -112,6 +112,7 @@ let detailsCard = document.querySelector('.card-detail');
 
 async function showDetailsCard(charID, borderColor) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
+    charLocationApiData = await fetchApi(charApiData.location.url) 
     console.log(charApiData);
     detailsCard.classList.add('show-detail-card')
 
@@ -119,11 +120,13 @@ async function showDetailsCard(charID, borderColor) {
     document.getElementById('char-img-detail').src = charApiData.image;
     document.getElementById('char-img-detail').style.boxShadow = borderColor
     document.getElementById("char-name-detail").innerText = charApiData.name;
+    document.getElementById("char-status-detail").innerText = charApiData.status;
     document.getElementById("char-gender-detail").innerText = charApiData.gender;
     document.getElementById("char-species-detail").innerText = charApiData.species;
     document.getElementById("char-origin-detail").innerText = charApiData.origin.name;
     document.getElementById("char-location-detail").innerText = charApiData.location.name;
-    document.getElementById("char-status-detail").innerText = charApiData.status;
+    document.getElementById("location-type").innerText = charLocationApiData.type;
+    document.getElementById("location-dimension").innerText = charLocationApiData.dimension;
 }
 
 // Close details card.

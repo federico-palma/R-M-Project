@@ -92,9 +92,9 @@ main {
 /* Detail Card */
 .card-detail {
     position: fixed;
-    width: 400px;
+    width: 450px;
     max-width: 90%;
-    height: 600px;
+    height: 630px;
     background-color: #BEE5fD;
     box-shadow: 2px 2px 5px 1px;
     z-index: 10;
@@ -104,6 +104,7 @@ main {
     top: 10%;
     left: 50%;
     transform: translateX(-50%);
+    overflow: auto;
     display: flex;
     flex-wrap: wrap;
     visibility: hidden;
@@ -112,14 +113,15 @@ main {
 #close-btn {
     background-color: #ff0000;
     border: 2px solid #000000;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     position: absolute;
-    left: -14px;
-    top: -14px;
+    left: -2px;
+    top: -2px;
     width: 30px;
     height: 30px;
     text-align: center;
     padding: 0px;
+    z-index: 100;
 }
 
 #close-btn:hover {
