@@ -13,14 +13,15 @@ function resetCardTable() {
 }
 
 // Functions add and remove loading animation.
-let loadingAnimElements = document.getElementById('loading');
+let mainLoadingAnimElements = document.getElementById('main-loading');
+let searchLoadingAnimElements = document.getElementById('search-loading');
 
-function showLoading() {
-    loadingAnimElements.style.opacity = 1;
+function showLoading(loadingElement) {
+    loadingElement.style.opacity = 1;
 };
 
-function hideLoading() {
-    loadingAnimElements.style.opacity = 0;
+function hideLoading(loadingElement) {
+    loadingElement.style.opacity = 0;
 };
 
 // Function fetches API, returns data in json format.
@@ -52,7 +53,7 @@ function createCardElements() {
 // Function calls createCardElements(), sets content on them and appends them to card table.
 async function setCharContent(apiUrl) {
     message.innerHTML = ''
-    showLoading()
+    showLoading(mainLoadingAnimElements)
     apiData = await fetchApi(apiUrl);
     let counter = 0
     let cardList = []
@@ -91,7 +92,6 @@ async function setCharContent(apiUrl) {
             
             // Checks that Img has loaded before appending
             cardElements[1].addEventListener('load', () => {
-                sleep(80)
                 counter ++
                 cardList.push(cardElements[0])
                 
@@ -102,13 +102,15 @@ async function setCharContent(apiUrl) {
 
                     for (const card of cardList) {
                         cardTable.appendChild(card);
+                        card.classList.add('show-card');
                     }
-                    hideLoading();
+                    hideLoading(mainLoadingAnimElements);
                 }
             });
         }
     } else {
         console.log('API Data not loaded');
+        hideLoading(mainLoadingAnimElements);
     }
 }
 
@@ -120,7 +122,7 @@ let detailsCard = document.querySelector('.card-detail');
 
 async function showDetailsCard(charID, borderColor) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
-    detailsCard.classList.add('show-detail-card')
+    detailsCard.classList.add('show-card')
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
@@ -136,46 +138,56 @@ async function showDetailsCard(charID, borderColor) {
 // Close details card.
 let closeBtn = document.getElementById('close-btn');
 closeBtn.addEventListener('click', () => {
-    detailsCard.classList.remove('show-detail-card')
+    detailsCard.classList.remove('show-card')
 });
 
 // Show all characters button.
 let allCharBtn = document.getElementById('allCharBtn');
-allCharBtn.addEventListener('click', showAllChar);
+allCharBtn.addEventListener('click', () => {
+    showAllChar();
+    resetFilters();
+});
+
 function showAllChar() {
     resetCardTable();
     setCharContent(baseApiUrl);
 }
 
-// Search function.
-let searchInput = document.getElementById('search-input')
-let searchBtn = document.getElementById('search-btn')
-
-searchBtn.addEventListener('click', () => {
-    resetCardTable();
-    searchFilterChar(searchInput.value);
-})
-
-// Searching filters.
+// Search feature.
+// Searching filters, with event listener for search on input.
 let filtersTab = document.querySelector('.filters-tab');
 let filtersBtn = document.getElementById('show-filter-btn');
 let filterArrow = document.getElementById('filter-arrow');
 
 let statusFilter = '';
 let statusSelect = document.getElementById('status-select');
-statusSelect.onchange = () => {statusFilter = statusSelect.value};
+statusSelect.onchange = () => {
+    statusFilter = statusSelect.value;
+    searchOnInput();
+};
 
 let speciesFilter = '';
 let speciesSelect = document.getElementById('species-select');
-speciesSelect.onchange = () => {speciesFilter = speciesSelect.value};
+speciesSelect.onchange = () => {
+    speciesFilter = speciesSelect.value;
+    searchOnInput();
+};
 
 let genderFilter = '';
 let genderSelect = document.getElementById('gender-select');
-genderSelect.onchange = () => {genderFilter = genderSelect.value};
+genderSelect.onchange = () => {
+    genderFilter = genderSelect.value;
+    searchOnInput();
+};
 
 // Reset filters button.
 let resetFilterBtn = document.getElementById('reset-filter-btn');
 resetFilterBtn.addEventListener('click', () => {
+    resetFilters()
+    searchOnInput();
+});
+
+function resetFilters() {
     searchInput.value = '';
     statusFilter = '';
     statusSelect.value = '';
@@ -183,7 +195,7 @@ resetFilterBtn.addEventListener('click', () => {
     speciesSelect.value = '';
     genderFilter = '';
     genderSelect.value = '';
-});
+}
 
 // Event Listener to show search filters.
 filtersBtn.addEventListener('click', () => {
@@ -226,7 +238,24 @@ async function searchFilterChar(input) {
     } else {
         setCharContent(filteredUrl);
     }
+    hideLoading(searchLoadingAnimElements);
 }
+
+// Search on input function.
+let searchInput = document.getElementById('search-input')
+let timer;
+searchInput.addEventListener('keyup', searchOnInput);
+
+function searchOnInput() {
+    showLoading(searchLoadingAnimElements);
+    clearTimeout(timer);
+    timer = setTimeout(searchFunctions, 1500);
+};
+
+function searchFunctions() {
+    resetCardTable();
+    searchFilterChar(searchInput.value);
+};
 
 // Event listener for infinte scrolling.
 window.addEventListener('scroll', () => {
@@ -238,27 +267,6 @@ window.addEventListener('scroll', () => {
         console.log('All characters loaded.')
     }
 });
-
-// Function to resize navbar 
-
-// function scrollFunction() {
-//     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-//         document.getElementById("header-img").style.width = "100px";
-//         document.getElementById("header").style.height = "60px";
-//         document.getElementById("cts").classList.add("cts-anim-class");
-//         if (screen.width < 635) {
-//             document.getElementById("nav-bar").style.flexDirection = "row";
-//         }
-        
-//     } else {
-//         document.getElementById("header-img").style.width = "170px";
-//         document.getElementById("header").style.height = "120px";
-//         document.getElementById("cts").classList.remove("cts-anim-class");
-//         if (screen.width < 635) {
-//             document.getElementById("nav-bar").style.flexDirection = "column";
-//         }
-//     }
-// }
 
 // Test function to add time to a task
 function sleep(milliseconds) {

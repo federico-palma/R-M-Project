@@ -17,11 +17,10 @@
                     <li id="allCharBtn">All Characters</li>
                 </ul>
                 <div id="search-field">
+                    <div id="search-loading" class=""></div>
                     <div id="search-bar">
+                        
                         <input type="text" id="search-input" placeholder="Search by name">
-                        <button id="search-btn" class="material-icons">
-                            <span class="material-icons">search</span>
-                        </button>
                     </div>
                     <button class="filter-btn" id="show-filter-btn">Show filters<i class="arrow down" id="filter-arrow"></i></button>
                     <div class="filters-tab">
@@ -64,12 +63,11 @@
                     </div>
                 </div>
             </nav>
-            <h2 id="message"></h2>
 
+            <h2 id="message"></h2>
             <div id="card-table">
             </div>
             
-
             <div class="card-detail">
                 <button id="close-btn">X</button>
                 <p id="char-id-detail"></p>
@@ -84,7 +82,7 @@
                 </ul>
             </div>
         </main>
-        <div id="loading" class="">
+        <div id="main-loading" class="">
             <div class="ball"></div>
             <div class="ball"></div>
             <div class="ball"></div>
