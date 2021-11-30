@@ -124,7 +124,7 @@ async function showDetailsCard(charID, borderColor) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID)
     charLocationApiData = await fetchApi(charApiData.location.url) 
     console.log(charApiData);
-    detailsCard.classList.add('show-detail-card')
+    detailsCard.classList.add('show-card')
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
