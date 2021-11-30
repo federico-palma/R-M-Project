@@ -2,16 +2,26 @@ const baseApiUrl = 'https://rickandmortyapi.com/api/character';
 let apiData;
 let charApiData;
 let cardTable = document.getElementById('card-table');
+let message = document.getElementById('message');
+
+// Function resets the cardtable.
+function resetCardTable() {
+    window.scrollTo(0, 0);
+    while (cardTable.firstChild) {
+        cardTable.removeChild(cardTable.lastChild);
+    }
+}
 
 // Functions add and remove loading animation.
-let loadingAnimElements = document.getElementById('loading');
+let mainLoadingAnimElements = document.getElementById('main-loading');
+let searchLoadingAnimElements = document.getElementById('search-loading');
 
-function showLoading() {
-    loadingAnimElements.style.opacity = 1;
+function showLoading(loadingElement) {
+    loadingElement.style.opacity = 1;
 };
 
-function hideLoading() {
-    loadingAnimElements.style.opacity = 0;
+function hideLoading(loadingElement) {
+    loadingElement.style.opacity = 0;
 };
 
 // Function fetches API, returns data in json format.
@@ -42,7 +52,8 @@ function createCardElements() {
 
 // Function calls createCardElements(), sets content on them and appends them to card table.
 async function setCharContent(apiUrl) {
-    showLoading()
+    message.innerHTML = ''
+    showLoading(mainLoadingAnimElements)
     apiData = await fetchApi(apiUrl);
     let counter = 0
     let cardList = []
@@ -81,26 +92,25 @@ async function setCharContent(apiUrl) {
             
             // Checks that Img has loaded before appending
             cardElements[1].addEventListener('load', () => {
-                // sleep(100)
                 counter ++
                 cardList.push(cardElements[0])
                 
                 if (counter == apiData.results.length) {
                     cardList.sort((a, b) => {
-                        console.log(a.lastElementChild.textContent)
-                        console.log(b.lastElementChild.textContent)
-                        a.lastElementChild.textContent - b.lastElementChild.textContent
+                        return a.lastElementChild.textContent - b.lastElementChild.textContent;
                     });
 
                     for (const card of cardList) {
                         cardTable.appendChild(card);
+                        card.classList.add('show-card');
                     }
-                    hideLoading();
+                    hideLoading(mainLoadingAnimElements);
                 }
             });
         }
     } else {
         console.log('API Data not loaded');
+        hideLoading(mainLoadingAnimElements);
     }
 }
 
@@ -132,10 +142,126 @@ async function showDetailsCard(charID, borderColor) {
 // Close details card.
 let closeBtn = document.getElementById('close-btn');
 closeBtn.addEventListener('click', () => {
-    detailsCard.classList.remove('show-detail-card')
+    detailsCard.classList.remove('show-card')
 });
 
-// Event listener for infinte scrolling and loading animation.
+// Show all characters button.
+let allCharBtn = document.getElementById('allCharBtn');
+allCharBtn.addEventListener('click', () => {
+    showAllChar();
+    resetFilters();
+});
+
+function showAllChar() {
+    resetCardTable();
+    setCharContent(baseApiUrl);
+}
+
+// Search feature.
+// Searching filters, with event listener for search on input.
+let filtersTab = document.querySelector('.filters-tab');
+let filtersBtn = document.getElementById('show-filter-btn');
+let filterArrow = document.getElementById('filter-arrow');
+
+let statusFilter = '';
+let statusSelect = document.getElementById('status-select');
+statusSelect.onchange = () => {
+    statusFilter = statusSelect.value;
+    searchOnInput();
+};
+
+let speciesFilter = '';
+let speciesSelect = document.getElementById('species-select');
+speciesSelect.onchange = () => {
+    speciesFilter = speciesSelect.value;
+    searchOnInput();
+};
+
+let genderFilter = '';
+let genderSelect = document.getElementById('gender-select');
+genderSelect.onchange = () => {
+    genderFilter = genderSelect.value;
+    searchOnInput();
+};
+
+// Reset filters button.
+let resetFilterBtn = document.getElementById('reset-filter-btn');
+resetFilterBtn.addEventListener('click', () => {
+    resetFilters()
+    searchOnInput();
+});
+
+function resetFilters() {
+    searchInput.value = '';
+    statusFilter = '';
+    statusSelect.value = '';
+    speciesFilter = '';
+    speciesSelect.value = '';
+    genderFilter = '';
+    genderSelect.value = '';
+}
+
+// Event Listener to show search filters.
+filtersBtn.addEventListener('click', () => {
+    if (filterArrow.classList[1] == 'down') {
+        filterArrow.classList.remove('down')
+        filterArrow.classList.add('up')
+        filtersTab.classList.add('show-filter-tab');
+        filtersBtn.childNodes[0].textContent = 'Hide filters';
+    } else {
+        filterArrow.classList.remove('up')
+        filterArrow.classList.add('down')
+        filtersTab.classList.remove('show-filter-tab');
+        filtersBtn.childNodes[0].textContent = 'Show filters';
+    }
+});
+
+// Function takes searchbar input, and calls setCharContent() to fetch and post filtered character by name.
+async function searchFilterChar(input) {
+    let filteredUrl = baseApiUrl + '/?'
+
+    let lowerCaseInput = input.toLowerCase();
+    if (searchInput.value != '') {
+        filteredUrl += 'name=' + lowerCaseInput;
+    }
+    if (statusFilter != '') {
+        filteredUrl += '&status=' + statusFilter;
+    }
+    if (speciesFilter != '') {
+        filteredUrl += '&species=' + speciesFilter;
+    }
+    if (genderFilter != '') {
+        filteredUrl += '&gender=' + genderFilter;
+    }
+
+    let filteredApiData = await fetchApi(filteredUrl);
+    console.log(filteredUrl)
+
+    if (filteredApiData['error'] == 'There is nothing here') {
+        message.innerHTML = "There's no character with the name: '" + input + "'";
+    } else {
+        setCharContent(filteredUrl);
+    }
+    hideLoading(searchLoadingAnimElements);
+}
+
+// Search on input function.
+let searchInput = document.getElementById('search-input')
+let timer;
+searchInput.addEventListener('keyup', searchOnInput);
+
+function searchOnInput() {
+    showLoading(searchLoadingAnimElements);
+    clearTimeout(timer);
+    timer = setTimeout(searchFunctions, 1500);
+};
+
+function searchFunctions() {
+    resetCardTable();
+    searchFilterChar(searchInput.value);
+};
+
+// Event listener for infinte scrolling.
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight && apiData.info.next !== null) {
@@ -146,27 +272,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Function to resize navbar 
-
-// function scrollFunction() {
-//     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-//         document.getElementById("header-img").style.width = "100px";
-//         document.getElementById("header").style.height = "60px";
-//         document.getElementById("cts").classList.add("cts-anim-class");
-//         if (screen.width < 635) {
-//             document.getElementById("nav-bar").style.flexDirection = "row";
-//         }
-        
-//     } else {
-//         document.getElementById("header-img").style.width = "170px";
-//         document.getElementById("header").style.height = "120px";
-//         document.getElementById("cts").classList.remove("cts-anim-class");
-//         if (screen.width < 635) {
-//             document.getElementById("nav-bar").style.flexDirection = "column";
-//         }
-//     }
-// }
-
+// Test function to add time to a task
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
