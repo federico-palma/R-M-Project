@@ -1,0 +1,197 @@
+/* Main cards section */
+#card-table {
+    margin: auto;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    max-width: 1100px;
+}
+
+.char-card{
+    position: relative;
+    max-width: 216px;
+    height: 300px;
+    margin: 25px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 1px;
+    background-color: #BEE5fD;
+    display: grid;
+    grid-row: 70% 20%;
+    visibility: hidden;
+}
+
+.char-card:hover {
+    cursor: pointer;
+}
+
+.char-img {
+    max-width: 80%;
+    max-height: 90%;
+    margin: auto;
+    margin-top: 17%;
+    box-shadow: 0px 0px 5px 5px #F675Da;
+    border-radius: 50%;
+}
+
+.char-name{
+    margin: auto;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 2px;
+}
+
+.char-id {
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    background-color: rgba(19, 0, 0, 0);
+    width: 20px;
+    text-align: end;
+}
+
+@media only screen and (max-width: 580px) {
+    .char-card {
+        margin: 5px;
+    }
+}
+
+#message {
+    position: absolute;
+    left: 0;
+    right: 0;
+    min-width: 60%;
+    margin: auto;
+    margin-top: 10%;
+    font-size: 2rem;
+    text-align: center;
+    z-index: 50;
+    color: rgba(0, 0, 0, 0.7);
+    
+}
+
+/* Detail Card */
+.card-detail {
+    position: fixed;
+    width: 400px;
+    max-width: 90%;
+    height: 600px;
+    background-color: #BEE5fD;
+    box-shadow: 2px 2px 5px 1px;
+    border-radius: 10px;
+    z-index: 10;
+    margin: auto;
+    margin-top: 40px;
+    padding: 20px;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    visibility: hidden;
+}
+
+#close-btn {
+    background-color: #ff0000;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    position: absolute;
+    left: -14px;
+    top: -14px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 0px;
+}
+
+#close-btn:hover {
+    cursor: pointer;
+}
+
+#char-img-detail {
+    max-width: 80%;
+    max-height: 90%;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 0px 0px 5px 5px #F675Da;
+}
+
+#char-detail-list {
+    padding: 0;
+    margin: 15px auto;
+    margin-left: 2px;
+    list-style-type: none;
+}
+
+.char-detail-items {
+    margin: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.char-detail-items span {
+    font-weight: lighter;
+}
+
+#char-id-detail {
+    position: absolute;
+    right: 10px;
+    top: -7px;
+}
+
+/* FadeIn animation for cards and filters*/
+.show-card {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Main Loading Animation */
+#main-loading {
+	opacity: 0;
+	display: flex;
+	position: fixed;
+	bottom: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+    transition: opacity .3s ease-in;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.ball {
+	background-color: #FFF874;
+	border-radius: 50%;
+	margin: 5px;
+	height: 10px;
+	width: 10px;
+	animation: jump .5s ease-in infinite;
+}
+
+.ball:nth-of-type(2) {
+	animation-delay: 0.1s;
+}
+
+.ball:nth-of-type(3) {
+	animation-delay: 0.2s;
+}
+
+@keyframes jump {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	
+	50% {
+		transform: translateY(-10px);
+	}
+}
