@@ -90,7 +90,7 @@ async function setCharContent(apiUrl) {
                     break;
             }
             
-            // Checks that Img has loaded before appending
+            // Checks that Img has loaded before sorting and appending them
             cardElements[1].addEventListener('load', () => {
                 counter ++
                 cardList.push(cardElements[0])
@@ -238,7 +238,7 @@ async function searchFilterChar(input) {
     console.log(filteredUrl)
 
     if (filteredApiData['error'] == 'There is nothing here') {
-        message.innerHTML = "There's no character with the name: '" + input + "'";
+        message.innerHTML = "There's no character with the given search parameters.";
     } else {
         setCharContent(filteredUrl);
     }
