@@ -68,7 +68,7 @@ async function setCharContent(apiUrl) {
             
             // Set Event listener for detail card pop up.
             cardElements[0].addEventListener('click', () => {
-                showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow);
+                showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow, cardElements[0]);
             });
                
             // Modify border based on gender of character
@@ -117,14 +117,16 @@ async function setCharContent(apiUrl) {
 // Set initial cards.
 setCharContent(baseApiUrl)
 
-// Details card code.
+////////////  Details card ////////////
 let detailsCard = document.querySelector('.card-detail');
 
-async function showDetailsCard(charID, borderColor) {
-    charApiData = await fetchApi(baseApiUrl + '/' + charID)
-    charLocationApiData = await fetchApi(charApiData.location.url) 
+async function showDetailsCard(charID, borderColor, clickedCharCard) {
+    charApiData = await fetchApi(baseApiUrl + '/' + charID);
+    charLocationApiData = await fetchApi(charApiData.location.url);
     console.log(charApiData);
-    detailsCard.classList.add('show-card')
+    detailsCard.style.marginTop = window.pageYOffset + clickedCharCard.getBoundingClientRect().top;
+    console.log(detailsCard.style.marginTop);
+    detailsCard.classList.add('show-card');
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
@@ -145,19 +147,7 @@ closeBtn.addEventListener('click', () => {
     detailsCard.classList.remove('show-card')
 });
 
-// Show all characters button.
-let allCharBtn = document.getElementById('allCharBtn');
-allCharBtn.addEventListener('click', () => {
-    showAllChar();
-    resetFilters();
-});
-
-function showAllChar() {
-    resetCardTable();
-    setCharContent(baseApiUrl);
-}
-
-// Search feature.
+//////////// Search feature ////////////
 // Searching filters, with event listener for search on input.
 let filtersTab = document.querySelector('.filters-tab');
 let filtersBtn = document.getElementById('show-filter-btn');
