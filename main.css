@@ -74,19 +74,15 @@
 /* Detail Card */
 .card-detail {
     position: absolute;
+    top: 50%;
+    left: 50%;
     width: 400px;
-    max-width: 90%;
     height: fit-content;
     background-color: #BEE5fD;
     box-shadow: 2px 2px 5px 1px;
     border-radius: 10px;
     z-index: 10;
-    margin: auto;
-    /* margin-top: 40px; */
     padding: 20px;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     flex-wrap: wrap;
     visibility: hidden;
