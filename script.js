@@ -135,6 +135,10 @@ async function showDetailsCard(charID, borderColor, clickedCharCard) {
     document.getElementById("location-type").innerText = locationApiData.type;
     document.getElementById("location-dimension").innerText = locationApiData.dimension;
 
+    // Set details card at same height as current position of viewport.
+    let distanceFromTop = window.pageYOffset;
+    detailsCard.style.top = (distanceFromTop + 100) + 'px';
+
     detailsCard.classList.add('show-card');
 }
 
