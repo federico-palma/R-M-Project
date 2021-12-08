@@ -26,9 +26,14 @@ function hideLoading(loadingElement) {
 
 // Function fetches API, returns data in json format.
 async function fetchApi(url) {
-    let response = await fetch(url);
-    let data = await response.json();
-    return data;
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
+    
 };
 
 // Function creates new Character Card elements & sets classes. Returns list with new elements.
@@ -121,7 +126,6 @@ let detailsCard = document.querySelector('.card-detail');
 
 async function showDetailsCard(charID, borderColor, clickedCharCard) {
     charApiData = await fetchApi(baseApiUrl + '/' + charID);
-    locationApiData = await fetchApi(charApiData.location.url);
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
@@ -132,8 +136,18 @@ async function showDetailsCard(charID, borderColor, clickedCharCard) {
     document.getElementById("char-species-detail").innerText = charApiData.species;
     document.getElementById("char-origin-detail").innerText = charApiData.origin.name;
     document.getElementById("char-location-detail").innerText = charApiData.location.name;
-    document.getElementById("location-type").innerText = locationApiData.type;
-    document.getElementById("location-dimension").innerText = locationApiData.dimension;
+
+    locationApiData = await fetchApi(charApiData.location.url);
+    if (locationApiData) {
+        document.getElementsByClassName("location-details")[0].style.display = 'block';
+        document.getElementsByClassName("location-details")[1].style.display = 'block';
+        document.getElementById("location-type").innerText = locationApiData.type;
+        document.getElementById("location-dimension").innerText = locationApiData.dimension;
+    } else {
+        document.getElementsByClassName("location-details")[0].style.display = 'none';
+        document.getElementsByClassName("location-details")[1].style.display = 'none';
+    }
+    
 
     // Set details card at same height as current position of viewport.
     let distanceFromTop = window.pageYOffset;
