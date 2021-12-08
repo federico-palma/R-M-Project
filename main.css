@@ -136,6 +136,28 @@
     top: -7px;
 }
 
+.zoom-anim {
+    visibility: visible;
+    animation: zoomIn 2s ease-in;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0%);
+        opacity: 0;
+    }
+    5%{
+        opacity: 1;
+    }
+    100% {
+        transform: scale(100%);
+        left: 50%;
+        top: 100px;
+        /* transform: translateX(-50%); */
+    }
+
+}
+
 /* FadeIn animation for cards and filters*/
 .show-card {
     visibility: visible;

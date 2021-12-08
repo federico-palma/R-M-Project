@@ -134,12 +134,13 @@ async function showDetailsCard(charID, borderColor, clickedCharCard) {
     document.getElementById("char-location-detail").innerText = charApiData.location.name;
     document.getElementById("location-type").innerText = locationApiData.type;
     document.getElementById("location-dimension").innerText = locationApiData.dimension;
-
+    
     // Set details card at same height as current position of viewport.
-    let distanceFromTop = window.pageYOffset;
+    const distanceFromTop = window.pageYOffset;
     detailsCard.style.top = (distanceFromTop + 100) + 'px';
 
     detailsCard.classList.add('show-card');
+    // zoomInDetailsCard(clickedCharCard);
 }
 
 // Close details card.
@@ -147,7 +148,29 @@ let closeBtn = document.getElementById('close-btn');
 closeBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     detailsCard.classList.remove('show-card');
+    detailsCard.classList.remove('zoom-anim');
 });
+
+// Zoom in and out for details card.
+function zoomInDetailsCard(clickedCharCard) {
+    const charCardPosition = getCoord(clickedCharCard)
+    detailsCard.style.top = charCardPosition.top + 'px'
+    detailsCard.style.left = charCardPosition.left + 'px'
+
+    detailsCard.classList.add('zoom-anim');
+
+
+    console.log(charCardPosition.top)
+    console.log(charCardPosition.left)
+}
+
+function getCoord(elem) {
+    const rect = elem.getBoundingClientRect();
+    return {
+      left: rect.left + window.scrollX,
+      top: rect.top + window.scrollY
+    };
+  }
 
 //////////// Search feature ////////////
 // Searching filters, with event listener for search on input.
