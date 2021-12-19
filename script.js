@@ -238,6 +238,9 @@ function searchOnInput() {
     showLoading(searchLoadingAnimElements);
     clearTimeout(timer);
     timer = setTimeout(searchFunctions, 1500);
+    
+    // Hide details card if opened.
+    detailsCard.classList.remove('show-card')
 };
 
 function searchFunctions() {
