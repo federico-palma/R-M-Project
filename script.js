@@ -137,8 +137,9 @@ async function showDetailsCard(charID, borderColor, clickedCharCard) {
     document.getElementById("char-origin-detail").innerText = charApiData.origin.name;
     document.getElementById("char-location-detail").innerText = charApiData.location.name;
 
-    locationApiData = await fetchApi(charApiData.location.url);
-    if (locationApiData) {
+    // Check if location URL on character is valid, and show location details.
+    if (charApiData.location.url) {
+        locationApiData = await fetchApi(charApiData.location.url);
         document.getElementsByClassName("location-details")[0].style.display = 'block';
         document.getElementsByClassName("location-details")[1].style.display = 'block';
         document.getElementById("location-type").innerText = locationApiData.type;
