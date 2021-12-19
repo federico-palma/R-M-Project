@@ -141,18 +141,6 @@ closeBtn.addEventListener('click', () => {
     detailsCard.classList.remove('show-card')
 });
 
-// Show all characters button.
-let allCharBtn = document.getElementById('allCharBtn');
-allCharBtn.addEventListener('click', () => {
-    showAllChar();
-    resetFilters();
-});
-
-function showAllChar() {
-    resetCardTable();
-    setCharContent(baseApiUrl);
-}
-
 // Search feature.
 // Searching filters, with event listener for search on input.
 let filtersTab = document.querySelector('.filters-tab');
