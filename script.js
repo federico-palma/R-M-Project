@@ -26,10 +26,14 @@ function hideLoading(loadingElement) {
 
 // Function fetches API, returns data in json format.
 async function fetchApi(url) {
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log(data);
-    return data;
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
+    
 };
 
 // Function creates new Character Card elements & sets classes. Returns list with new elements.
@@ -68,25 +72,25 @@ async function setCharContent(apiUrl) {
             
             // Set Event listener for detail card pop up.
             cardElements[0].addEventListener('click', () => {
-                showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow);
+                showDetailsCard(cardElements[3].innerText, cardElements[1].style.boxShadow, cardElements[0]);
             });
                
             // Modify border based on gender of character
             switch (apiData.results[i].gender) {
                 case 'Male':
-                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #1512da'
+                    cardElements[1].style.boxShadow = '0px 0px 10px 3px #1512da'
                     break;
                 case 'Female':
-                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #da122d'
+                    cardElements[1].style.boxShadow = '0px 0px 10px 3px #da122d'
                     break;
                 case 'Genderless':
-                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #ee7b22'
+                    cardElements[1].style.boxShadow = '0px 0px 10px 3px #ee7b22'
                     break;
                 case 'unknown':
-                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #4ecf27'
+                    cardElements[1].style.boxShadow = '0px 0px 10px 3px #4ecf27'
                     break;
                 default:
-                    cardElements[1].style.boxShadow = '0px 0px 5px 5px #f60fe3'
+                    cardElements[1].style.boxShadow = '0px 0px 10px 3px #f60fe3'
                     break;
             }
             
@@ -117,31 +121,50 @@ async function setCharContent(apiUrl) {
 // Set initial cards.
 setCharContent(baseApiUrl)
 
-// Details card code.
+////////////  Details card ////////////
 let detailsCard = document.querySelector('.card-detail');
 
-async function showDetailsCard(charID, borderColor) {
-    charApiData = await fetchApi(baseApiUrl + '/' + charID)
-    detailsCard.classList.add('show-card')
+async function showDetailsCard(charID, borderColor, clickedCharCard) {
+    charApiData = await fetchApi(baseApiUrl + '/' + charID);
 
     document.getElementById('char-id-detail').innerText = charID;
     document.getElementById('char-img-detail').src = charApiData.image;
     document.getElementById('char-img-detail').style.boxShadow = borderColor
     document.getElementById("char-name-detail").innerText = charApiData.name;
+    document.getElementById("char-status-detail").innerText = charApiData.status;
     document.getElementById("char-gender-detail").innerText = charApiData.gender;
     document.getElementById("char-species-detail").innerText = charApiData.species;
     document.getElementById("char-origin-detail").innerText = charApiData.origin.name;
     document.getElementById("char-location-detail").innerText = charApiData.location.name;
-    document.getElementById("char-status-detail").innerText = charApiData.status;
+
+    // Check if location URL on character is valid, and show location details.
+    if (charApiData.location.url) {
+        locationApiData = await fetchApi(charApiData.location.url);
+        document.getElementsByClassName("location-details")[0].style.display = 'block';
+        document.getElementsByClassName("location-details")[1].style.display = 'block';
+        document.getElementById("location-type").innerText = locationApiData.type;
+        document.getElementById("location-dimension").innerText = locationApiData.dimension;
+    } else {
+        document.getElementsByClassName("location-details")[0].style.display = 'none';
+        document.getElementsByClassName("location-details")[1].style.display = 'none';
+    }
+    
+
+    // Set details card at same height as current position of viewport.
+    let distanceFromTop = window.pageYOffset;
+    detailsCard.style.top = (distanceFromTop + 100) + 'px';
+
+    detailsCard.classList.add('show-card');
 }
 
 // Close details card.
 let closeBtn = document.getElementById('close-btn');
-closeBtn.addEventListener('click', () => {
-    detailsCard.classList.remove('show-card')
+closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    detailsCard.classList.remove('show-card');
 });
 
-// Search feature.
+//////////// Search feature ////////////
 // Searching filters, with event listener for search on input.
 let filtersTab = document.querySelector('.filters-tab');
 let filtersBtn = document.getElementById('show-filter-btn');
@@ -219,7 +242,6 @@ async function searchFilterChar(input) {
     }
 
     let filteredApiData = await fetchApi(filteredUrl);
-    console.log(filteredUrl)
 
     if (filteredApiData['error'] == 'There is nothing here') {
         message.innerHTML = "There's no character with the given search parameters.";
